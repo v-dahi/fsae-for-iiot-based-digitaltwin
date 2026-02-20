@@ -1,10 +1,9 @@
 # Field-Sensitive Adaptive Encryption (FSAE) for IIoT Digital Twin Telemetry
 
-This mini project implements **Field-Sensitive Adaptive Encryption (FSAE)**: a context-aware, **field-level** encryption framework for Digital Twin telemetry streams. Instead of encrypting every message end-to-end, FSAE selectively encrypts only the **high-risk** (and sometimes medium-risk) fields to preserve **sub-millisecond latency** while protecting sensitive operational data. :contentReference[oaicite:0]{index=0}
+This mini project implements **Field-Sensitive Adaptive Encryption (FSAE)**: a context-aware, **field-level** encryption framework for Digital Twin telemetry streams. Instead of encrypting every message end-to-end, FSAE selectively encrypts only the **high-risk** (and sometimes medium-risk) fields to preserve **sub-millisecond latency** while protecting sensitive operational data. 
 
 ## Why this matters
-Digital Twin systems rely on real-time telemetry for monitoring and control. Full-payload encryption can add overhead/jitter, while plaintext exposes sensitive information. FSAE balances both by encrypting only the fields that matter most. :contentReference[oaicite:1]{index=1}
-
+Digital Twin systems rely on real-time telemetry for monitoring and control. Full-payload encryption can add overhead/jitter, while plaintext exposes sensitive information. FSAE balances both by encrypting only the fields that matter most. 
 ---
 
 ## Key ideas
@@ -26,8 +25,7 @@ Encryption decisions adapt at runtime using:
 Example behavior:
 - In **alert**, encrypt **high + medium** fields.
 - On **WiFi/Public**, encrypt **high**, and encrypt **medium** for non-viewer roles.
-- On trusted **LAN** (normal), encrypt **high** only. :contentReference[oaicite:3]{index=3}
-
+- On trusted **LAN** (normal), encrypt **high** only. 
 ### 3) Crypto mechanism: AES-256-GCM (per-field)
 Selected fields are encrypted using **AES-256-GCM**, with a unique nonce per field per message (authenticated encryption). :contentReference[oaicite:4]{index=4}
 
@@ -39,7 +37,7 @@ A complete MQTT-based Digital Twin telemetry pipeline:
 - **Mosquitto broker** routes messages
 - **Engineer subscriber** decrypts and logs latency stats (p50/p95)
 - **Viewer subscriber** shows only low-sensitivity fields (least-privilege)
-- **Dashboard** visualizes telemetry + shows which fields are encrypted :contentReference[oaicite:5]{index=5}
+- **Dashboard** visualizes telemetry + shows which fields are encrypted 
 
 ---
 
@@ -50,32 +48,31 @@ Core FSAE logic:
 - S–I–T scoring + field classification
 - Context-aware `select_fields_to_encrypt(...)`
 - `encrypt_fields(...)` with a switch to enable/disable real AES-GCM
-- `decrypt_fields(...)` for subscribers :contentReference[oaicite:6]{index=6} :contentReference[oaicite:7]{index=7}
+- `decrypt_fields(...)` for subscribers 
 
 ### `publisher.py`
 Simulated device/gateway publisher:
 - Generates telemetry (timestamp, device_id, operator_id, temperature, pressure, speed)
 - Rotates context (e.g., LAN <-> WiFi) to demonstrate adaptive policy
-- Publishes at ~2 msg/s and prints payload size + encrypted fields :contentReference[oaicite:8]{index=8}
+- Publishes at ~2 msg/s and prints payload size + encrypted fields 
 
 ### `subscriber_engineer.py`
 Privileged subscriber:
 - Decrypts encrypted fields
-- Computes end-to-end latency and writes p50/p95 + throughput to `perf_log.csv` :contentReference[oaicite:9]{index=9} :contentReference[oaicite:10]{index=10}
+- Computes end-to-end latency and writes p50/p95 + throughput to `perf_log.csv` 
 
 ### `subscriber_viewer.py`
 Restricted subscriber:
 - Prints only a “safe view” of allowed low-sensitivity fields
-- Ignores encrypted blobs (least-privilege behavior) :contentReference[oaicite:11]{index=11}
+- Ignores encrypted blobs (least-privilege behavior) 
 
 ### `dashboard.py`
 Plotly Dash dashboard:
 - Subscribes to MQTT stream
 - Live plots (e.g., temperature/speed)
-- Shows latest JSON + `_enc_header.enc_fields` :contentReference[oaicite:12]{index=12} :contentReference[oaicite:13]{index=13}
-
+- Shows latest JSON + `_enc_header.enc_fields` 
 ### `plot_perf.py`
-Reads `perf_log.csv` and plots crypto_on vs crypto_off latency comparison. :contentReference[oaicite:14]{index=14}
+Reads `perf_log.csv` and plots crypto_on vs crypto_off latency comparison. 
 
 ---
 
