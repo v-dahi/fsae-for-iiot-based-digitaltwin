@@ -15,7 +15,7 @@ Each telemetry field gets a score based on:
 - **Impact (I)**: operational/safety risk if modified
 - **Timeliness (T)**: importance for real-time control
 
-In the prototype, the score is computed as: `Score = 3S + 2I + T`, then mapped to **low / medium / high** risk. :contentReference[oaicite:2]{index=2}
+In the prototype, the score is computed as: `Score = 3S + 2I + T`, then mapped to **low / medium / high** risk.
 
 ### 2) Context-aware policy engine
 Encryption decisions adapt at runtime using:
