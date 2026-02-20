@@ -93,12 +93,13 @@ pip install paho-mqtt cryptography dash plotly matplotlib
 ## Run the demo
 
 **Terminal 1 — Start publisher**
-```
 Edit ENABLE_CRYPTO inside publisher.py:
 - False = baseline (no real encryption, only marks fields)
 - True = FSAE enabled (AES-256-GCM on selected fields)
 
-Run: python3 publisher.py
+Run:
+```
+python3 publisher.py
 ```
 
 **Terminal 2 — Engineer subscriber (decrypt + perf logs)**
