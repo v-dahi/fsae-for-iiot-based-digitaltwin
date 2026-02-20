@@ -115,10 +115,12 @@ python3 subscriber_viewer.py
 **Terminal 4 — Dashboard (optional)**
 ```
 python3 dashboard.py
+```
 Open the Dash URL it prints (typically http://127.0.0.1:8050).
 
 - Plot results
 After you have perf_log.csv:
+```
 python3 plot_perf.py
 ```
 ## What to expect (performance)
