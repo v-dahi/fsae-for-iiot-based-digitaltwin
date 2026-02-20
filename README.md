@@ -30,7 +30,7 @@ Selected fields are encrypted using **AES-256-GCM**, with a unique nonce per fie
 
 ---
 
-## System architecture (what’s running)
+## System architecture
 A complete MQTT-based Digital Twin telemetry pipeline:
 - **Publisher** generates JSON telemetry and selectively encrypts fields before publish
 - **Mosquitto broker** routes messages
@@ -123,7 +123,7 @@ After you have perf_log.csv:
 ```
 python3 plot_perf.py
 ```
-## What to expect (performance)
+## What to expect
 Your report’s evaluation compares crypto off vs crypto on while holding throughput constant at ~2 msg/s. It shows a small latency increase when FSAE is enabled while remaining below 1 ms end-to-end. 
 
 ~ Notes / security
