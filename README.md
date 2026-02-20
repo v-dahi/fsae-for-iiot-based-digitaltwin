@@ -2,8 +2,7 @@
 
 This mini project implements **Field-Sensitive Adaptive Encryption (FSAE)**: a context-aware, **field-level** encryption framework for Digital Twin telemetry streams. Instead of encrypting every message end-to-end, FSAE selectively encrypts only the **high-risk** (and sometimes medium-risk) fields to preserve **sub-millisecond latency** while protecting sensitive operational data. 
 
-## Why this matters
-Digital Twin systems rely on real-time telemetry for monitoring and control. Full-payload encryption can add overhead/jitter, while plaintext exposes sensitive information. FSAE balances both by encrypting only the fields that matter most. 
+## Why this matters - Digital Twin systems rely on real-time telemetry for monitoring and control. Full-payload encryption can add overhead/jitter, while plaintext exposes sensitive information. FSAE balances both by encrypting only the fields that matter most. 
 ---
 
 ## Key ideas
@@ -27,7 +26,7 @@ Example behavior:
 - On **WiFi/Public**, encrypt **high**, and encrypt **medium** for non-viewer roles.
 - On trusted **LAN** (normal), encrypt **high** only. 
 ### 3) Crypto mechanism: AES-256-GCM (per-field)
-Selected fields are encrypted using **AES-256-GCM**, with a unique nonce per field per message (authenticated encryption). :contentReference[oaicite:4]{index=4}
+Selected fields are encrypted using **AES-256-GCM**, with a unique nonce per field per message (authenticated encryption).
 
 ---
 
